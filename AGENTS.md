@@ -1,49 +1,64 @@
 # POC-RA Agent Instructions
 
-Superpowers is enabled for this project.
+## Superpowers Check — Do This First
 
-Before starting work in this repository, check the installed Superpowers skills under
-`~/.codex/skills` and use any relevant workflow skill. Start with
-`using-superpowers` when unsure which skill applies.
+Before starting any work, check whether the Superpowers plugin is installed in your
+current agent environment.
 
-Common Superpowers workflows for this project:
+Superpowers is installed if you have access to skills such as `using-superpowers`,
+`brainstorming`, `writing-plans`, or `systematic-debugging`.
 
-- `brainstorming` for shaping unclear feature ideas before implementation.
-- `writing-plans` for turning approved designs into implementation plans.
-- `test-driven-development` for code changes where tests are practical.
-- `systematic-debugging` for investigating bugs or failing tests.
-- `requesting-code-review` and `receiving-code-review` for review loops.
-- `verification-before-completion` before claiming work is done.
+If Superpowers is NOT installed, ask the user:
 
-Project plans created by Superpowers should go in `docs/superpowers/plans/`.
+> "Superpowers is not installed. It provides structured workflows for brainstorming,
+> planning, TDD, debugging, and code review. Would you like to install it?"
 
-React template skills:
+If the user says yes, provide the install command for their agent:
 
-The React skill suite is installed globally under `~/.codex/skills` and mirrored in
-this repository under `skills/` for review and portability. Use the global installed
-skills during agent work.
+| Agent | Install command |
+|---|---|
+| Claude Code | `/plugin install superpowers@claude-plugins-official` |
+| Codex CLI | Run `/plugins`, search "superpowers", select Install |
+| GitHub Copilot CLI | `copilot plugin install superpowers@superpowers-marketplace` |
+| Cursor | `/add-plugin superpowers` in Agent chat |
+| Gemini CLI | `gemini extensions install https://github.com/obra/superpowers` |
+| Factory Droid | `droid plugin marketplace add https://github.com/obra/superpowers` then `droid plugin install superpowers@superpowers` |
 
-- `react-frontend-architecture` for React app structure, feature boundaries,
-  component ownership, state placement, hooks patterns, server/client separation,
-  and scalability conventions.
-- `react-code-review` for reviewing React diffs, PRs, components, hooks,
-  rendering risks, TypeScript quality, accessibility regressions, and test gaps.
-- `react-testing-strategy` for unit, integration, component, browser, e2e,
+After installation, use Superpowers workflows throughout this project:
+
+- `brainstorming` — shape unclear feature ideas before implementation.
+- `writing-plans` — turn approved designs into implementation plans.
+- `test-driven-development` — for code changes where tests are practical.
+- `systematic-debugging` — investigate bugs or failing tests.
+- `requesting-code-review` and `receiving-code-review` — for review loops.
+- `verification-before-completion` — before claiming work is done.
+
+Project plans go in `docs/superpowers/plans/`. Design specs go in `docs/superpowers/specs/`.
+
+---
+
+## React Skills
+
+This project includes a React skill suite under `skills/`. Read `skills/<name>/SKILL.md`
+before starting any matching task. Check `skills/<name>/references/` for deeper guidance.
+
+- `react-frontend-architecture` — app structure, feature boundaries, component ownership,
+  state placement, hooks patterns, server/client separation, and scalability conventions.
+- `react-code-review` — reviewing diffs, PRs, components, hooks, rendering risks,
+  TypeScript quality, accessibility regressions, and test gaps.
+- `react-testing-strategy` — unit, integration, component, browser, e2e,
   visual validation, and accessibility testing decisions.
-- `react-refactoring` for splitting large components, extracting hooks,
-  modularizing logic, reducing duplication, and preserving behavior.
-- `react-performance` for rendering performance, bundle size, lazy loading,
-  memoization, data waterfalls, Core Web Vitals, and performance budgets.
-- `react-fullstack-integration` for REST, GraphQL, RPC, Next.js APIs,
-  Server Actions, RSC, backend interop, validation, caching, and error contracts.
-- `react-auth-architecture` for authentication, authorization, sessions,
-  route guards, token handling, RBAC/ABAC, OAuth/OIDC, Better Auth, and protected
-  API access.
-- `react-data-database-integration` for data flows, database-facing API contracts,
-  schema-driven types, query caches, mutations, optimistic updates, pagination,
-  migrations awareness, and consistency behavior.
-- `design-to-react-implementation` for converting UI designs, Figma files,
-  design tokens, shadcn/ui patterns, responsive layouts, accessibility semantics,
-  interaction states, and visual QA into React implementation.
-- `react-template-documentation-devops` for React template documentation, ADRs,
-  GitHub Actions, CI checks, contribution guidance, and release hygiene.
+- `react-refactoring` — splitting large components, extracting hooks, modularizing logic,
+  reducing duplication, and preserving behavior.
+- `react-performance` — rendering performance, bundle size, lazy loading, memoization,
+  data waterfalls, Core Web Vitals, and performance budgets.
+- `react-fullstack-integration` — REST, GraphQL, RPC, Next.js APIs, Server Actions, RSC,
+  backend interop, validation, caching, and error contracts.
+- `react-auth-architecture` — authentication, authorization, sessions, route guards,
+  token handling, RBAC/ABAC, OAuth/OIDC, Better Auth, and protected API access.
+- `react-data-database-integration` — data flows, database-facing API contracts,
+  schema-driven types, query caches, mutations, optimistic updates, and pagination.
+- `design-to-react-implementation` — converting Figma files, design tokens, shadcn/ui
+  patterns, responsive layouts, accessibility semantics, and interaction states into React.
+- `react-template-documentation-devops` — template documentation, ADRs, GitHub Actions,
+  CI checks, contribution guidance, and release hygiene.
