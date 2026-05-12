@@ -16,6 +16,24 @@ Use this approved spec as the authority for scope and naming:
 
 - `docs/superpowers/specs/2026-05-12-react-global-skills-design.md`
 
+## External Source Mapping
+
+Use the requested external skills and guides as source material where they fit. Do not copy them verbatim; adapt their workflows into our concise global skills.
+
+- `anthropics/frontend-design`: Base `design-to-react-implementation` visual-quality rules on this source.
+- `google-labs-code/react-components`: Base component-boundary guidance in `react-frontend-architecture`, `react-refactoring`, and `design-to-react-implementation` on this source.
+- `google-labs-code/shadcn-ui`: Base `design-to-react-implementation/references/shadcn-ui.md` on this source.
+- `openai/frontend-skill`: Use as a general frontend implementation and review influence for `design-to-react-implementation`, `react-frontend-architecture`, and `react-code-review`.
+- `vercel-react-best-practices`: Base React/Next performance categories in `react-performance`, `react-code-review`, and `react-frontend-architecture` on this source.
+- `react-specialist`: Use as a senior React heuristics influence for architecture, review, refactoring, and testing.
+- `anthropics/webapp-testing`: Base `react-testing-strategy/references/browser-testing.md` on this source.
+- `openai/playwright-interactive`: Base browser debugging and visual QA guidance in `react-testing-strategy` and `design-to-react-implementation` on this source.
+- `figma/figma-implement-design`: Base `design-to-react-implementation/references/figma-to-code.md` on this source.
+- `better-auth/create-auth`: Base Better Auth setup flow in `react-auth-architecture/references/better-auth.md` on this source.
+- `better-auth/best-practices`: Base auth security and production checks in `react-auth-architecture` on this source.
+- `apollographql/apollo-client`: Base GraphQL and Apollo guidance in `react-fullstack-integration/references/graphql-contracts.md` and `react-data-database-integration` on this source.
+- `cloudflare/web-perf`: Base measurement workflow and audit categories in `react-performance` on this source.
+
 ## File Structure
 
 Create these global skill folders:
@@ -300,6 +318,8 @@ description: Use when reviewing React pull requests, diffs, components, hooks, T
 
 The body must require findings-first review, sorted by severity, with file/line references when reviewing local files. It must inspect rendering behavior, hook dependencies, TypeScript soundness, state ownership, async effects, accessibility semantics, tests, and architecture fit. It must say summaries are secondary and should be brief.
 
+Also incorporate review concerns inspired by `vercel-react-best-practices`, `openai/frontend-skill`, and `react-specialist`: performance impact, maintainability, boundary drift, UI correctness, and scalable React patterns.
+
 - [ ] **Step 2: Write `references/review-checklist.md`**
 
 Include checklist sections for correctness, rendering, hooks, TypeScript, accessibility, tests, maintainability, and scalability.
@@ -346,6 +366,8 @@ description: Use when planning, writing, generating, or reviewing React tests in
 ```
 
 The body must choose the smallest useful test level, require behavior-focused tests, prefer user-visible assertions, and define when to use unit, integration, component, browser, e2e, visual, and accessibility tests.
+
+Also incorporate browser workflow guidance inspired by `anthropics/webapp-testing` and `openai/playwright-interactive`: start or locate the dev server, inspect the live app, gather console/network evidence, use stable selectors, capture screenshots when visual behavior matters, and iterate from observed browser state.
 
 - [ ] **Step 2: Write `references/browser-testing.md`**
 
@@ -428,6 +450,8 @@ description: Use when improving React rendering performance, bundle size, lazy l
 
 The body must require measuring first, identifying bottleneck class, avoiding premature memoization, fixing data waterfalls and excessive rendering deliberately, and verifying with relevant tools.
 
+Also incorporate performance categories inspired by `vercel-react-best-practices` and `cloudflare/web-perf`: impact severity, render-blocking resources, network dependency chains, image and font loading, cache behavior, hydration costs, layout shifts, and Core Web Vitals.
+
 - [ ] **Step 2: Write `references/profiling.md`**
 
 Cover React DevTools Profiler, browser performance traces, render counts, long tasks, network waterfalls, and before/after evidence.
@@ -480,6 +504,8 @@ description: Use when connecting React to backend systems, REST APIs, GraphQL AP
 
 The body must keep frontend/backend responsibilities explicit, define contract ownership, normalize error/loading states, keep secrets server-side, and avoid locking React templates to one backend language.
 
+Also incorporate GraphQL/Apollo guidance inspired by `apollographql/apollo-client`: generated operation types, cache policies, query/mutation ownership, local state, error handling, Suspense where appropriate, and React Server Components compatibility when the framework supports it.
+
 - [ ] **Step 2: Write full-stack references**
 
 Create:
@@ -501,6 +527,8 @@ description: Use when implementing or reviewing React authentication, authorizat
 ```
 
 The body must separate authentication from authorization, prohibit unsafe token storage assumptions, identify which checks belong on the backend, cover loading/expiry/failure states, and require route/API protection verification.
+
+Also incorporate Better Auth guidance inspired by `better-auth/create-auth` and `better-auth/best-practices`: scan the stack before recommending setup, configure server/client boundaries, choose adapter/session/cookie settings deliberately, run migrations when required, use environment variables safely, and verify origin/CSRF/rate-limit concerns.
 
 - [ ] **Step 4: Write auth references**
 
@@ -567,6 +595,8 @@ description: Use when converting UI designs, Figma files, design tokens, compone
 ```
 
 The body must inspect the design system first, map tokens, build accessible components, cover responsive behavior, include interaction states, and verify visually in browser when practical.
+
+Also incorporate design-to-code guidance inspired by `anthropics/frontend-design`, `google-labs-code/react-components`, `google-labs-code/shadcn-ui`, `openai/frontend-skill`, `openai/playwright-interactive`, and `figma/figma-implement-design`: inspect design context, map tokens and components, prefer existing UI primitives, implement responsive states, compare screenshots, and refine until browser output matches intent.
 
 - [ ] **Step 2: Write design references**
 

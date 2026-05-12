@@ -30,6 +30,26 @@ Use a focused pack of broad workflow skills, with advanced narrow references ava
 
 Avoid a single mega skill because it would load too much unrelated context and mix different work modes. Avoid an overly large initial set because too many narrow skills would create overlap and maintenance overhead before real usage patterns are known.
 
+## External Skill Sources
+
+The global skills should be based on the user's requested skill sources where they fit. These sources are inputs and pattern references, not files to copy verbatim.
+
+| Source skill or guide | Use in our skill suite |
+| --- | --- |
+| `anthropics/frontend-design` | Inform `design-to-react-implementation` for production-grade UI quality, intentional visual direction, typography, motion, layout, and avoiding generic UI output. |
+| `google-labs-code/react-components` | Inform `react-frontend-architecture`, `react-refactoring`, and `design-to-react-implementation` for modular React components, component boundaries, and Vite/React component output patterns. |
+| `google-labs-code/shadcn-ui` | Inform `design-to-react-implementation` for shadcn/ui discovery, installation, customization, theming, Radix/Base UI composition, and project-owned component source. |
+| `openai/frontend-skill` | Inform `design-to-react-implementation`, `react-frontend-architecture`, and `react-code-review` for frontend implementation quality and UI/code review heuristics. |
+| `vercel-react-best-practices` | Inform `react-performance`, `react-code-review`, and `react-frontend-architecture` for waterfalls, bundle size, server/client performance, data fetching, rerender optimization, and prioritized impact categories. |
+| `react-specialist` | Inform `react-frontend-architecture`, `react-code-review`, `react-refactoring`, and `react-testing-strategy` for senior React engineering heuristics. |
+| `anthropics/webapp-testing` | Inform `react-testing-strategy` for local web app Playwright testing, server lifecycle, screenshots, console logs, DOM reconnaissance, and selector discovery. |
+| `openai/playwright-interactive` | Inform `react-testing-strategy` and `design-to-react-implementation` for interactive browser debugging, functional QA, visual QA, and iterative UI inspection. |
+| `figma/figma-implement-design` | Inform `design-to-react-implementation` for Figma URL handling, design context extraction, screenshot comparison, asset handling, design token mapping, and 1:1 visual validation. |
+| `better-auth/create-auth` | Inform `react-auth-architecture` for Better Auth project scanning, implementation planning, server/client setup, route handlers, migrations, auth UI, and post-implementation next steps. |
+| `better-auth/best-practices` | Inform `react-auth-architecture` for Better Auth configuration, database adapters, sessions, cookies, environment variables, plugins, hooks, rate limiting, CSRF/origin checks, and security gotchas. |
+| `apollographql/apollo-client` | Inform `react-fullstack-integration` and `react-data-database-integration` for Apollo Client 4.x, React GraphQL queries/mutations, cache policies, generated types, local state, errors, and Suspense/RSC compatibility. |
+| `cloudflare/web-perf` | Inform `react-performance` for Chrome DevTools-based performance audits, Core Web Vitals, render-blocking resources, network chains, layout shifts, caching issues, and accessibility gaps. |
+
 ## Global Skill Folders
 
 ```text
