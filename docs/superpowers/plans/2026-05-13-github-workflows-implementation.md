@@ -4,7 +4,7 @@
 
 **Goal:** Add pull request summary and CI workflows, then make merge eligibility depend on successful workflow checks.
 
-**Architecture:** Keep PR summarization separate from build validation so comments and verification have independent job names. Add one CI workflow with explicit install, format, lint, typecheck, test, and build jobs that map to root package scripts. Configure GitHub branch protection to require those checks before merge.
+**Architecture:** Keep PR summarization separate from build validation so comments and verification have independent job names. Add one CI workflow with one required `CI` job that runs install, format, lint, typecheck, test, and build steps in sequence. Configure GitHub branch protection to require `PR summary` and `CI` before merge.
 
 **Tech Stack:** GitHub Actions, pnpm 9.15.4, Node 22, Turborepo, OpenAI Codex Action, GitHub CLI.
 
@@ -44,7 +44,7 @@ Expected: command exits 0 after formatting is valid.
 
 - [ ] **Step 1: Create CI jobs**
 
-Create jobs for `format`, `lint`, `typecheck`, `test`, and `build`. Each job checks out the repository, enables pnpm from `packageManager`, installs with `pnpm install --frozen-lockfile`, then runs the matching root script.
+Create one `CI` job that checks out the repository, enables pnpm from `packageManager`, installs with `pnpm install --frozen-lockfile`, then runs `pnpm format`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build` in sequence. Required check contexts use the GitHub check run names: `PR summary` and `CI`.
 
 - [ ] **Step 2: Run workflow formatting**
 
@@ -63,11 +63,7 @@ Run GitHub CLI/API to require the following status checks before merging to `mai
 
 ```text
 PR summary
-CI / Format
-CI / Lint
-CI / Typecheck
-CI / Unit Tests
-CI / Build
+CI
 ```
 
 - [ ] **Step 2: Verify protection**
