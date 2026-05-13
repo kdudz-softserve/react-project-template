@@ -1,0 +1,10 @@
+node_modules/
+dist/
+build/
+coverage/
+.turbo/
+pnpm-lock.yaml
+AGENTS.md
+docs/
+skills/
+.github/copilot-instructions.md
