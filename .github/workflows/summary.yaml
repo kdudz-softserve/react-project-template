@@ -1,27 +1,81 @@
-name: PR summary with Codex
+name: PR summary
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
 jobs:
-  summarize:
+  pr-summary:
+    name: PR summary
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
+      issues: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - name: Run Codex summary
+      - name: Generate PR summary
+        id: codex
         uses: openai/codex-action@v1
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          sandbox: read-only
           prompt: |
+            You are generating a pull request summary.
+            Do not install anything.
+            Do not ask questions.
+            Do not modify files.
+            Return only GitHub Markdown.
+
             Summarize this pull request.
+            Start with a short pull request description in 2-3 sentences.
+            Keep the description concise and useful for reviewers.
+
             Include:
-            - What changed
-            - Why it changed
-            - Testing notes
-            - Risk areas
+            ## Summary
+            ## What changed
+            ## Why it changed
+            ## Testing notes
+            ## Risk areas
+
+      - name: Post PR comment
+        uses: actions/github-script@v7
+        env:
+          BODY: ${{ steps.codex.outputs.final-message }}
+        with:
+          script: |
+            const marker = "<!-- codex-pr-summary -->";
+            const body = `${marker}\n${process.env.BODY}`;
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number
+            });
+
+            const previous = comments.find((comment) =>
+              comment.body?.startsWith(marker)
+            );
+
+            if (previous) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: previous.id,
+                body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                body
+              });
+            }
