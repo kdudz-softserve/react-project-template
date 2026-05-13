@@ -16,4 +16,8 @@ gh api \
   --field allow_deletions=false \
   --field required_conversation_resolution=true \
   --raw-field required_status_checks[contexts][]="PR summary" \
-  --raw-field required_status_checks[contexts][]="CI"
+  --raw-field required_status_checks[contexts][]="Format" \
+  --raw-field required_status_checks[contexts][]="Lint" \
+  --raw-field required_status_checks[contexts][]="Typecheck" \
+  --raw-field required_status_checks[contexts][]="Unit Tests" \
+  --raw-field required_status_checks[contexts][]="Build"
