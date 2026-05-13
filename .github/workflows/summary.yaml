@@ -6,7 +6,7 @@ on:
 
 permissions:
   contents: read
-  pull-requests: read
+  pull-requests: write
   issues: write
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: read
+      pull-requests: write
       issues: write
 
     steps:
@@ -51,9 +51,31 @@ jobs:
           BODY: ${{ steps.codex.outputs.final-message }}
         with:
           script: |
-            await github.rest.issues.createComment({
+            const marker = "<!-- codex-pr-summary -->";
+            const body = `${marker}\n${process.env.BODY}`;
+
+            const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
-              body: process.env.BODY
-            })
+              issue_number: context.payload.pull_request.number
+            });
+
+            const previous = comments.find((comment) =>
+              comment.body?.startsWith(marker)
+            );
+
+            if (previous) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: previous.id,
+                body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                body
+              });
+            }
