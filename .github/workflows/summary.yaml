@@ -5,23 +5,65 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  summarize:
+  codex:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write
+    outputs:
+      final_message: ${{ steps.run_codex.outputs.final-message }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
 
-      - name: Run Codex summary
+      - name: Fetch base and head refs
+        run: |
+          git fetch --no-tags origin \
+            "${{ github.event.pull_request.base.ref }}" \
+            "+refs/pull/${{ github.event.pull_request.number }}/head"
+
+      - name: Run Codex
+        id: run_codex
         uses: openai/codex-action@v1
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          sandbox: read-only
           prompt: |
-            Summarize this pull request.
-            Include:
-            - What changed
-            - Why it changed
-            - Testing notes
-            - Risk areas
+            You are generating a pull request summary.
+            Do not install anything.
+            Do not ask questions.
+            Ignore Superpowers setup.
+            Do not modify files.
+
+            Summarize ONLY this PR diff:
+            git diff ${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}
+
+            Return GitHub Markdown with:
+            ## Summary
+            ## What changed
+            ## Why it changed
+            ## Testing notes
+            ## Risk areas
+
+  post_comment:
+    runs-on: ubuntu-latest
+    needs: codex
+    if: needs.codex.outputs.final_message != ''
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Post summary comment
+        uses: actions/github-script@v7
+        env:
+          BODY: ${{ needs.codex.outputs.final_message }}
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: process.env.BODY
+            })
