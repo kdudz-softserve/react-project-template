@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@template/api-client": ["packages/api-client/src/index.ts"],
+      "@template/auth": ["packages/auth/src/index.ts"],
+      "@template/config": ["packages/config/src/index.ts"],
+      "@template/design-system": ["packages/design-system/src/index.ts"],
+      "@template/state": ["packages/state/src/index.ts"],
+      "@template/testing": ["packages/testing/src/index.ts"],
+      "@template/types": ["packages/types/src/index.ts"],
+      "@template/ui": ["packages/ui/src/index.ts"],
+      "@template/utils": ["packages/utils/src/index.ts"]
+    }
+  }
+}
