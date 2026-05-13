@@ -37,6 +37,21 @@ Project plans go in `docs/superpowers/plans/`. Design specs go in `docs/superpow
 
 ---
 
+## Git and PR Workflow
+
+Do not create implementation, planning, or documentation commits directly on `main`.
+
+Before making a commit:
+
+1. Create or switch to a focused feature branch.
+2. Keep each branch scoped to one small reviewable unit of work.
+3. Make small commits that match the current approved step.
+4. Leave `main` as the integration branch for PRs.
+
+When work is ready, describe the branch and commits so the user can create a PR.
+
+---
+
 ## React Skills
 
 This project includes a React skill suite under `skills/`. Read `skills/<name>/SKILL.md`
