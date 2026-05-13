@@ -1,4 +1,4 @@
-name: PR summary with Codex
+name: PR summary
 
 on:
   pull_request:
@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   pr-summary:
+    name: PR summary
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -34,6 +35,9 @@ jobs:
             Return only GitHub Markdown.
 
             Summarize this pull request.
+            Start with a short pull request description in 2-3 sentences.
+            Keep the description concise and useful for reviewers.
+
             Include:
             ## Summary
             ## What changed
